@@ -39,9 +39,18 @@ export async function POST(req) {
 
         data.messages.push(userPrompt);
 
+        // Prepare messages array with system message and conversation history
+        const messages = [
+            { role: "system", content: "You are a helpful assistant." },
+            ...data.messages.map(msg => ({
+                role: msg.role,
+                content: msg.content
+            }))
+        ];
+
         // Call the deepseek api to get the chat completion
         const completion = await openai.chat.completions.create({
-            messages: [{ role: "system", content: "You are a helpful assistant." }],
+            messages: messages,
             model: "deepseek/deepseek-chat-v3-0324:free",
             store: true,
         });
