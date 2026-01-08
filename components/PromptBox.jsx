@@ -76,7 +76,7 @@ const PromptBox = ({isLoading, setIsLoading}) => {
                     }, i*100)
                 }
             } else {
-                toast.error(data.message)
+                toast.error(data.error)
                 setPrompt(promptCopy)
             }
         } catch (error) {
